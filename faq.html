@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Model Zero FAQ</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/notice.css">
+    <script src="./script/jquery-3.6.0.js"></script>
+</head>
+
+
+<body>
+
+    <div class="custom-cursor"></div> <!-- 마우스따라다니는 원 -->
+    <button id="chatButton"><img src="./img/chatbot.svg" alt=""><img src="./img/chattxt.svg" alt=""></button> 
+      <button id="topButton" style="display: none;"><img src="./img/arrow.svg" alt="">Top</button> <!-- 탑버튼 -->
+
+    <!-- header -->
+    <header>
+        <a href="index.html">
+            <div class="logoWrap"><img src="./img/logo.svg" alt=""></div>
+        </a>
+        <div class="menuWrap">
+            <img src="./img/menu.svg" alt="">
+            <div class="sidemenu">
+                <ul class="menu">
+                    <li>
+                    <a href="./index.html"><p>Home</p></a>
+                    </li>
+                <li>
+                    <a href="#"><p>About</p></a>
+                    <div class="subemenu">
+                        <a href="#"><p>회사소개</p></a>
+                        <a href="#"><p>제품소개</p></a>
+                        <a href="#"><p>메뉴소개</p></a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#"><p>커뮤니티</p></a>
+                    <div class="subemenu">
+                        <a href="./notice.html"><p>공지사항</p></a>
+                        <a href="#"><p>언론보도</p></a>
+                        <a href="./faq.html"><p>자주묻는질문(FAQ)</p></a>
+                        <a href="#"><p>머신사용설명</p></a>
+                    </div>
+                </li>
+                <li>
+                    <a href="./contact.html"><p>제품문의</p></a>
+                </li>
+                <li>
+                    <a href="#"><p>Shop</p></a>
+                </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <section class="faq-container">
+        <h2>FAQ</h2>
+        <h1>자주묻는질문</h1>
+        <div class="faq-list">
+            <!-- 질문과 답변 -->
+            <div class="faq-item">
+                <div class="question">음료는 몇 가지 이상 만들 수 있나요?<img src="./img/arrow.svg" alt=""></div>
+                <div class="answer">2개의 원두 6개의 파우더 5개의 액상에 탄산디스펜서까지 탑제하여 국내에서 가장 다양한 메뉴의 조합이 가능합니다. 최소 50개에서 100가지 이상의 메뉴를 만들 수 있습니다.</div>
+            </div>
+            <div class="faq-item">
+                <div class="question">타사 모델 대비 어떤 강점이 있나요?<img src="./img/arrow.svg" alt=""></div>
+                <div class="answer">자체 개발한 탄산 디스펜서가 내장되어 있으며 4.5KG 제빙기는 국내 무인커피머신 중 가장 큰 용량을 자랑합니다. 15bar 압력의 에스프레소 추출로 고퀄리티의 커피를 만들 수 있습니다. 또한 네이버페이, 삼성페이, 제로페이 등은 물론 애플페이까지 결제가 가능한 단말기를 사용하여 모든 종류의 결제가 가능합니다.</div>
+            </div>
+            <div class="faq-item">
+                <div class="question">머신만 설치도 가능한가요?<img src="./img/arrow.svg" alt=""></div>
+                <div class="answer">네! 가능합니다. 현재 무인편의점, 코인세탁소, 무인아이스크림 할인점등 샵인샵 매장 뿐만 아니라 아파트 라운지, 군부대, 호텔 로비, 대학교, 병원 등 다양한 매장에 설치가 가능합니다.</div>
+            </div>
+            <div class="faq-item">
+                <div class="question">머신 가격은 어떻게 되나요?<img src="./img/arrow.svg" alt=""></div>
+                <div class="answer">머신 판매가격은 2,400만원(VAT별도) 이며, 부자제와 탄산가스, 배송설치비 등의 금액이 발생됩니다. 자세한 내용은 제품문의란에 신청글을 남겨주시거나 1644-4352로 연락주시면 구체적인 상담이 가능합니다.</div>
+            </div>
+            <div class="faq-item">
+                <div class="question">원두 및 부자재 등 구매는 어디서 하나요?<img src="./img/arrow.svg" alt=""></div>
+                <div class="answer">네이버 스마트스토어에서 공급하고 있으며 http://smartstore.naver.com/mooinstore 제휴 점주님들께서 폐쇄몰을 통해 판매하고 있습니다.</div>
+            </div>
+        </div>
+        
+        <!-- 페이지네이션 -->
+        <div class="pagination" data-type="faq">
+            <button class="prev"><img src="./img/page_prev.svg" alt=""></button>
+            <span class="page-numbers"></span>
+            <button class="next"><img src="./img/page_next.svg" alt=""></button>
+        </div>
+        
+    </div>
+
+
+
+
+    </section>
+
+
+    <!-- 푸터 -->
+    <footer>
+        <div class="footerWrap">
+            <div class="foot_logo">
+                <div class="foot_logo_txt"><img src="./img/logo_txt.svg" alt=""></div>
+                <div class="foot_logo_sns">
+                    <a href="#"><img src="./img/sns_youtube.svg" alt=""></a>
+                    <a href="#"><img src="./img/sns_kakao.svg" alt=""></a>
+                    <a href="#"><img src="./img/sns_insta.svg" alt=""></a>
+                    <a href="#"><img src="./img/sns_band.svg" alt=""></a>
+                </div>
+            </div>
+            <div class="foot_company">
+                <h2>Company</h2>
+                <ul>
+                    <li><img src="./img/foot_company_1.svg" alt="">회사명: 주식회사 좁은길</li>
+                    <li><img src="./img/foot_company_2.svg" alt="">대표: 박상돈</li>
+                    <li><img src="./img/foot_company_3.svg" alt="">주소: 경기 화성시 비봉면 청룡길 113-1 1층</li>
+                    <li><img src="./img/foot_company_4.svg" alt="">사업자번호: 192-86-02280</li>
+                    <li><img src="./img/foot_company_5.svg" alt="">통신판매업신고: 2021-고양일산동-2378호</li>
+                </ul>
+            </div>
+            <div class="foot_contact">
+                <h2>Comtact Us</h2>
+                <ul>
+                    <li><img src="./img/foot_contact_1.svg" alt="">wall5060@naver.com</li>
+                    <li><img src="./img/foot_contact_2.svg" alt="">1644-4352</li>
+                    <li><img src="./img/foot_contact_3.svg" alt="">1644-4352</li>
+                </ul>
+            </div>
+            <div class="foot_copy">
+                <p>개인정보처리방침 ㅣ 이용약관</p>
+                <p>Copyright ⓒ (주)좁은길 ALL RIGHT RESERVED.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    
+</body>
+<script src="./script/common.js"></script>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Model Zero Notice</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/notice.css">
+    <script src="./script/jquery-3.6.0.js"></script>
+</head>
+
+
+<body>
+
+    <div class="custom-cursor"></div> <!-- 마우스따라다니는 원 -->
+    <a href="#"><button id="chatButton"><img src="./img/chatbot.svg" alt=""><img src="./img/chattxt.svg" alt=""></button> </a>
+    <button id="topButton" style="display: none;"><img src="./img/arrow.svg" alt="">Top</button> <!-- 탑버튼 -->
+
+    <!-- header -->
+    <header>
+        <a href="index.html">
+            <div class="logoWrap"><img src="./img/logo.svg" alt=""></div>
+        </a>
+        <div class="menuWrap">
+            <img src="./img/menu.svg" alt="">
+            <div class="sidemenu">
+                <ul class="menu">
+                    <li>
+                    <a href="./index.html"><p>Home</p></a>
+                    </li>
+                <li>
+                    <a href="#"><p>About</p></a>
+                    <div class="subemenu">
+                        <a href="#"><p>회사소개</p></a>
+                        <a href="#"><p>제품소개</p></a>
+                        <a href="#"><p>메뉴소개</p></a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#"><p>커뮤니티</p></a>
+                    <div class="subemenu">
+                        <a href="./notice.html"><p>공지사항</p></a>
+                        <a href="#"><p>언론보도</p></a>
+                        <a href="./faq.html"><p>자주묻는질문(FAQ)</p></a>
+                        <a href="#"><p>머신사용설명</p></a>
+                    </div>
+                </li>
+                <li>
+                    <a href="./contact.html"><p>제품문의</p></a>
+                </li>
+                <li>
+                    <a href="#"><p>Shop</p></a>
+                </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <section class="notice-container">
+        <h2>Notice</h2>
+        <h1>공지사항</h1>
+        <!-- 검색 및 정렬 -->
+        <div class="notice-filter">
+            <select id="categoryFilter">
+                <option value="">전체</option>
+                <option value="제목">제목</option>
+                <option value="내용">내용</option>
+            </select>
+            <div class="search">
+                <input type="text" id="searchInput" placeholder="검색어 입력...">
+                <button id="searchButton"><img src="./img/notice-search.svg" alt=""></button>
+            </div>
+        </div>
+
+        <!-- 🔹 공지사항 목록 -->
+        <div class="notice-list">
+            <a href="" class="notice-item" data-category="공지">
+                <img src="./img/notice_img3.svg" alt="공지3">
+                <p>No. 10</p>
+                <p class="notice-title">공지제목 14</p>
+                <p class="notice-txt">공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다.</p>
+                <div class="notice-meta">
+                    <p class="author">wal*****</p>
+                    <p class="date">25-02-01</p>
+                    <p class="view-count"><img src="./img/notice_view.svg" alt="조회수아이콘"><span>0</span></p>
+               </div>
+            </a>
+            <a href="" class="notice-item" data-category="공지">
+                <img src="./img/notice_img1.svg" alt="공지1">
+                <p>No. 12</p>
+                <p class="notice-title">공지제목 13</p>
+                <p class="notice-txt">공지내용 예시입니다. 공지내용 예시입니다. </p>
+                <div class="notice-meta">
+                    <p class="author">wal*****</p>
+                    <p class="date">25-02-01</p>
+                    <p class="view-count"><img src="./img/notice_view.svg" alt="조회수아이콘"><span>0</span></p>
+               </div>
+            </a>
+            <a href="" class="notice-item" data-category="공지">
+                <img src="./img/notice_img1.svg" alt="공지1">
+                <p>No. 12</p>
+                <p class="notice-title">공지제목 12</p>
+                <p class="notice-txt">공지내용 예시입니다. 공지내용 예시입니다. </p>
+                <div class="notice-meta">
+                    <p class="author">wal*****</p>
+                    <p class="date">25-02-01</p>
+                    <p class="view-count"><img src="./img/notice_view.svg" alt="조회수아이콘"><span>0</span></p>
+               </div>
+            </a>
+            <a href="" class="notice-item" data-category="업데이트">
+                <img src="./img/notice_img2.svg" alt="공지2">
+                <p>No. 11</p>
+                <p class="notice-title">공지제목 11</p>
+                <p class="notice-txt">공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다.</p>
+                <div class="notice-meta">
+                    <p class="author">wal*****</p>
+                    <p class="date">25-02-01</p>
+                    <p class="view-count"><img src="./img/notice_view.svg" alt="조회수아이콘"><span>0</span></p>
+               </div>
+            </a>
+            <a href="" class="notice-item" data-category="공지">
+                <img src="./img/notice_img3.svg" alt="공지3">
+                <p>No. 10</p>
+                <p class="notice-title">공지제목 10</p>
+                <p class="notice-txt">공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다.</p>
+                <div class="notice-meta">
+                    <p class="author">wal*****</p>
+                    <p class="date">25-02-01</p>
+                    <p class="view-count"><img src="./img/notice_view.svg" alt="조회수아이콘"><span>0</span></p>
+               </div>
+            </a>
+            <a href="" class="notice-item" data-category="업데이트">
+                <img src="./img/notice_img4.svg" alt="공지4">
+                <p>No. 09</p>
+                <p class="notice-title">공지제목 9</p>
+                <p class="notice-txt">공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다.</p>
+                <div class="notice-meta">
+                    <p class="author">wal*****</p>
+                    <p class="date">25-02-01</p>
+                    <p class="view-count"><img src="./img/notice_view.svg" alt="조회수아이콘"><span>0</span></p>
+               </div>
+            </a>
+            <a href="" class="notice-item" data-category="업데이트">
+                <img src="./img/notice_img5.svg" alt="공지4">
+                <p>No. 08</p>
+                <p class="notice-title">공지제목 8</p>
+                <p class="notice-txt">공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다.</p>
+                <div class="notice-meta">
+                    <p class="author">wal*****</p>
+                    <p class="date">25-02-01</p>
+                    <p class="view-count"><img src="./img/notice_view.svg" alt="조회수아이콘"><span>0</span></p>
+               </div>
+            </a>
+            <a href="" class="notice-item" data-category="업데이트">
+                <img src="./img/notice_img6.svg" alt="공지4">
+                <p>No. 07</p>
+                <p class="notice-title">공지제목 7</p>
+                <p class="notice-txt">공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. </p>
+                <div class="notice-meta">
+                    <p class="author">wal*****</p>
+                    <p class="date">25-02-01</p>
+                    <p class="view-count"><img src="./img/notice_view.svg" alt="조회수아이콘"><span>0</span></p>
+               </div>
+            </a>
+            <a href="" class="notice-item" data-category="업데이트">
+                <img src="./img/notice_img6.svg" alt="공지4">
+                <p>No. 06</p>
+                <p class="notice-title">공지제목 6</p>
+                <p class="notice-txt">공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. </p>
+                <div class="notice-meta">
+                    <p class="author">wal*****</p>
+                    <p class="date">25-02-01</p>
+                    <p class="view-count"><img src="./img/notice_view.svg" alt="조회수아이콘"><span>0</span></p>
+               </div>
+            </a>
+            <a href="" class="notice-item" data-category="공지">
+                <img src="./img/notice_img1.svg" alt="공지1">
+                <p>No. 05</p>
+                <p class="notice-title">공지제목 5</p>
+                <p class="notice-txt">공지내용 예시입니다. 공지내용 예시입니다. </p>
+                <div class="notice-meta">
+                    <p class="author">wal*****</p>
+                    <p class="date">25-02-01</p>
+                    <p class="view-count"><img src="./img/notice_view.svg" alt="조회수아이콘"><span>0</span></p>
+               </div>
+            </a>
+            <a href="" class="notice-item" data-category="업데이트">
+                <img src="./img/notice_img2.svg" alt="공지2">
+                <p>No. 04</p>
+                <p class="notice-title">공지제목 4</p>
+                <p class="notice-txt">공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다.</p>
+                <div class="notice-meta">
+                    <p class="author">wal*****</p>
+                    <p class="date">25-02-01</p>
+                    <p class="view-count"><img src="./img/notice_view.svg" alt="조회수아이콘"><span>0</span></p>
+               </div>
+            </a>
+            <a href="" class="notice-item" data-category="공지">
+                <img src="./img/notice_img3.svg" alt="공지3">
+                <p>No. 03</p>
+                <p class="notice-title">공지제목 3</p>
+                <p class="notice-txt">공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다.</p>
+                <div class="notice-meta">
+                    <p class="author">wal*****</p>
+                    <p class="date">25-02-01</p>
+                    <p class="view-count"><img src="./img/notice_view.svg" alt="조회수아이콘"><span>0</span></p>
+               </div>
+            </a>
+            <a href="" class="notice-item" data-category="업데이트">
+                <img src="./img/notice_img4.svg" alt="공지4">
+                <p>No. 02</p>
+                <p class="notice-title">공지제목 2</p>
+                <p class="notice-txt">공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다.</p>
+                <div class="notice-meta">
+                    <p class="author">wal*****</p>
+                    <p class="date">25-02-01</p>
+                    <p class="view-count"><img src="./img/notice_view.svg" alt="조회수아이콘"><span>0</span></p>
+               </div>
+            </a>
+            <a href="" class="notice-item" data-category="업데이트">
+                <img src="./img/notice_img4.svg" alt="공지4">
+                <p>No. 01</p>
+                <p class="notice-title">공지제목 1</p>
+                <p class="notice-txt">공지내용 예시입니다. 공지내용 예시입니다. 공지내용 예시입니다.</p>
+                <div class="notice-meta">
+                    <p class="author">wal*****</p>
+                    <p class="date">25-02-01</p>
+                    <p class="view-count"><img src="./img/notice_view.svg" alt="조회수아이콘"><span>0</span></p>
+               </div>
+            </a>
+            <a class="notice-item" data-category="공지">
+                <!-- 내용추가 -->
+            </a>
+        </div>
+
+        <!-- 페이지네이션 -->
+        <div class="pagination" data-type="notice">
+            <button class="prev"><img src="./img/page_prev.svg" alt=""></button>
+            <span class="page-numbers"></span>
+            <button class="next"><img src="./img/page_next.svg" alt=""></button>
+        </div>
+
+    </section>
+
+
+    <!-- 푸터 -->
+    <footer>
+        <div class="footerWrap">
+            <div class="foot_logo">
+                <div class="foot_logo_txt"><img src="./img/logo_txt.svg" alt=""></div>
+                <div class="foot_logo_sns">
+                    <a href="#"><img src="./img/sns_youtube.svg" alt=""></a>
+                    <a href="#"><img src="./img/sns_kakao.svg" alt=""></a>
+                    <a href="#"><img src="./img/sns_insta.svg" alt=""></a>
+                    <a href="#"><img src="./img/sns_band.svg" alt=""></a>
+                </div>
+            </div>
+            <div class="foot_company">
+                <h2>Company</h2>
+                <ul>
+                    <li><img src="./img/foot_company_1.svg" alt="">회사명: 주식회사 좁은길</li>
+                    <li><img src="./img/foot_company_2.svg" alt="">대표: 박상돈</li>
+                    <li><img src="./img/foot_company_3.svg" alt="">주소: 경기 화성시 비봉면 청룡길 113-1 1층</li>
+                    <li><img src="./img/foot_company_4.svg" alt="">사업자번호: 192-86-02280</li>
+                    <li><img src="./img/foot_company_5.svg" alt="">통신판매업신고: 2021-고양일산동-2378호</li>
+                </ul>
+            </div>
+            <div class="foot_contact">
+                <h2>Comtact Us</h2>
+                <ul>
+                    <li><img src="./img/foot_contact_1.svg" alt="">wall5060@naver.com</li>
+                    <li><img src="./img/foot_contact_2.svg" alt="">1644-4352</li>
+                    <li><img src="./img/foot_contact_3.svg" alt="">1644-4352</li>
+                </ul>
+            </div>
+            <div class="foot_copy">
+                <p>개인정보처리방침 ㅣ 이용약관</p>
+                <p>Copyright ⓒ (주)좁은길 ALL RIGHT RESERVED.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    
+</body>
+<script src="./script/common.js"></script>
+</html>
