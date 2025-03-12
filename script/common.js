@@ -1,4 +1,23 @@
 $(function () {
+    console.log("✅ jQuery에서 DOM 로드 완료!");
+
+    // 경로 자동 변경
+    const basePath = window.location.origin.includes("s3") ? "" : "/modelHomePage";
+
+    document.querySelectorAll("a").forEach(link => {
+        const href = link.getAttribute("href");
+        if (href && !href.startsWith("http") && !href.startsWith("#")) {
+            link.setAttribute("href", `${basePath}/${href.replace(/^\/+/, "")}`);
+        }
+    });
+
+    $("img").each(function () {
+        let src = $(this).attr("src");
+        if (src && !src.startsWith("http")) {
+            $(this).attr("src", `${basePath}/${src.replace(/^\/+/, "")}`);
+        }
+    });
+
 
     /** ================================
      * 1. CSS 파일 동적 로드
@@ -17,11 +36,12 @@ $(function () {
      * 2. 공통 Header & Footer 로드 후 `common.js` 적용
      * ================================= */
     function loadComponent(elementId, filePath, callback) {
-        fetch(filePath)
+        const basePath = window.location.origin.includes("s3") ? "" : "/modelHomePage"; // S3에서는 "" 처리
+        fetch(`${basePath}/${filePath.replace(/^\/+/, "")}`)
             .then(response => response.text())
             .then(data => {
-                $(`#${elementId}`).html(data);
-                if (callback) callback(); // 헤더/푸터 로드 후 실행할 함수
+                document.getElementById(elementId).innerHTML = data;
+                if (callback) callback(); // 로드 후 실행할 콜백
             })
             .catch(error => console.error(`Error loading ${filePath}:`, error));
     }
