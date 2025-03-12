@@ -1,22 +1,40 @@
 $(function () {
     console.log("✅ jQuery에서 DOM 로드 완료!");
 
-    // 경로 자동 변경
-    const basePath = window.location.origin.includes("s3") ? "" : "/modelHomePage";
+    /** ================================
+     * 1. 경로 자동 변경 함수 (이미지 및 링크)
+     * ================================= */
+    function updatePaths() {
+        console.log("✅ 경로 자동 적용 실행됨!");
 
-    document.querySelectorAll("a").forEach(link => {
-        const href = link.getAttribute("href");
-        if (href && !href.startsWith("http") && !href.startsWith("#")) {
-            link.setAttribute("href", `${basePath}/${href.replace(/^\/+/, "")}`);
-        }
-    });
+        const basePath = window.location.origin.includes("s3") ? "" : "/modelHomePage";
 
-    $("img").each(function () {
-        let src = $(this).attr("src");
-        if (src && !src.startsWith("http")) {
-            $(this).attr("src", `${basePath}/${src.replace(/^\/+/, "")}`);
-        }
-    });
+        // ✅ 링크 경로 수정 (중복 적용 방지)
+        document.querySelectorAll("a").forEach(link => {
+            const href = link.getAttribute("href");
+            if (
+                href &&
+                !href.startsWith("http") &&  // 외부 링크가 아니면서
+                !href.startsWith("#") &&      // 내부 앵커링크가 아니면서
+                !href.startsWith(basePath)    // 이미 basePath가 적용되지 않은 경우
+            ) {
+                link.setAttribute("href", `${basePath}/${href.replace(/^\/+/, "")}`);
+            }
+        });
+
+        // ✅ 이미지 경로 수정 (중복 적용 방지)
+        document.querySelectorAll("img").forEach(img => {
+            const src = img.getAttribute("src");
+            if (src && !src.startsWith("http") && !src.startsWith(basePath)) {
+                img.setAttribute("src", `${basePath}/${src.replace(/^\/+/, "")}`);
+            }
+        });
+
+        console.log("✅ 경로 자동 적용 완료!");
+    }
+
+    // ✅ 초기 로딩 시 경로 수정
+    updatePaths();
 
 
     /** ================================
@@ -41,6 +59,7 @@ $(function () {
             .then(response => response.text())
             .then(data => {
                 document.getElementById(elementId).innerHTML = data;
+                updatePaths(); // ✅ fetch() 후에도 경로 다시 변경
                 if (callback) callback(); // 로드 후 실행할 콜백
             })
             .catch(error => console.error(`Error loading ${filePath}:`, error));
@@ -48,6 +67,7 @@ $(function () {
 
     function initializeCommonFeatures() {
         console.log("🔄 common.js 다시 실행");
+        updatePaths(); // ✅ fetch()가 완료된 후 경로 변경 다시 실행
 
         /** ========== 메뉴 동작 (모바일 & 데스크탑) ========== */
         function updateMenuBehavior() {
