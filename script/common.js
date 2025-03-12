@@ -1,100 +1,148 @@
-$(function(){
-    
-    setTimeout(() => {
-        $("#intro").fadeOut(1000, function () {
-            $("#main-content").fadeIn(500); // 메인 화면 표시
+$(function () {
+
+    /** ================================
+     * 1. CSS 파일 동적 로드
+     * ================================= */
+    function loadCSS(href) {
+        let link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = href;
+        document.head.appendChild(link);
+    }
+
+    // 공통 CSS 파일 로드
+    loadCSS("./css/common.css");
+
+    /** ================================
+     * 2. 공통 Header & Footer 로드 후 `common.js` 적용
+     * ================================= */
+    function loadComponent(elementId, filePath, callback) {
+        fetch(filePath)
+            .then(response => response.text())
+            .then(data => {
+                $(`#${elementId}`).html(data);
+                if (callback) callback(); // 헤더/푸터 로드 후 실행할 함수
+            })
+            .catch(error => console.error(`Error loading ${filePath}:`, error));
+    }
+
+    function initializeCommonFeatures() {
+        console.log("🔄 common.js 다시 실행");
+
+        /** ========== 메뉴 동작 (모바일 & 데스크탑) ========== */
+        function updateMenuBehavior() {
+            const isMobile = window.innerWidth <= 768;
+
+            if (isMobile) {
+                $("#menuToggle").off("click").on("click", function (e) {
+                    e.stopPropagation();
+                    $(this).toggleClass("open");
+                    $(".sidemenu").stop().slideToggle();
+                });
+
+                $(".sidemenu").off("click").on("click", function (e) {
+                    e.stopPropagation();
+                });
+
+                $(document).off("click").on("click", function () {
+                    $(".sidemenu").slideUp();
+                    $("#menuToggle").removeClass("open");
+                });
+
+            } else {
+                $("#menuToggle").removeClass("open");
+                $(".sidemenu").hide();
+
+                $(".menuWrap").off("mouseenter").on("mouseenter", function () {
+                    $(".sidemenu").stop().slideDown();
+                    $("#menuToggle").addClass("open");
+                });
+
+                $(".menuWrap, .sidemenu").off("mouseleave").on("mouseleave", function () {
+                    $(".sidemenu").stop().slideUp();
+                    $("#menuToggle").removeClass("open");
+                });
+
+                $(".menuWrap, .sidemenu").off("click").on("click", function () {
+                    $(".sidemenu").stop().slideUp();
+                    $("#menuToggle").removeClass("open");
+                });
+            }
+        }
+
+        updateMenuBehavior();
+        $(window).on("resize", updateMenuBehavior);
+
+        /** ========== 팝업 닫기 ========== */
+        $(".popupCheck img").click(() => {
+            $(".popup").hide();
         });
-    }, 1600); // 1.6초 뒤 페이드아웃 후 메인화면 표시
 
+        /** ========== 공지사항 검색 & 필터 ========== */
+        $("#searchButton").click(() => {
+            const searchText = $("#searchInput").val().toLowerCase();
+            const filterCategory = $("#categoryFilter").val();
 
+            $(".notice-item").each(function () {
+                const title = $(this).find(".notice-title").text().toLowerCase();
+                const content = $(this).find("p:nth-child(4)").text().toLowerCase();
+                const category = $(this).data("category");
 
-
-
-
-
-
-
-    // $('.menuWrap').mouseenter(function(){
-    //     $('.sidemenu').stop().slideDown();
-    // })
-    // $('.menuWrap, .sidemenu').mouseleave(function() {
-    //     $('.sidemenu').stop().slideUp();
-    // });
-    // $('.menuWrap, .sidemenu').click(function() {
-    //     $('.sidemenu').stop().slideUp();
-    // });
-    function updateMenuBehavior() {
-        if (window.innerWidth <= 768) {
-            // 모바일 환경: 햄버거 메뉴 클릭 시 메뉴 토글
-            $("#menuToggle").off("click").on("click", function (e) {
-                e.stopPropagation(); // 클릭 이벤트 전파 방지
-                $(this).toggleClass("open"); // 햄버거 버튼 애니메이션 적용
-                $(".sidemenu").stop().slideToggle();
+                $(this).toggle(
+                    (filterCategory === "" || category.includes(filterCategory)) &&
+                    (title.includes(searchText) || content.includes(searchText))
+                );
             });
-    
-            // 사이드 메뉴 내부 클릭 시 닫히지 않도록 방지
-            $(".sidemenu").off("click").on("click", function (e) {
-                e.stopPropagation();
-            });
-    
-            // 바깥 영역 클릭 시 메뉴 닫기
-            $(document).off("click").on("click", function () {
-                $(".sidemenu").slideUp();
-                $("#menuToggle").removeClass("open"); // 햄버거 버튼 초기 상태로 복귀
-            });
-        } else {
-            // 데스크탑 환경: hover 시 메뉴 표시
-            $("#menuToggle").removeClass("open"); // 데스크탑에서는 버튼 원래대로
-            $(".sidemenu").hide(); // 기본적으로 메뉴 숨김
-            
-            $(".menuWrap").off("mouseenter").on("mouseenter", function () {
-                $(".sidemenu").stop().slideDown();
-                $("#menuToggle").addClass("open"); // 햄버거 버튼을 X자로 변경
-            });
-    
-            $(".menuWrap, .sidemenu").off("mouseleave").on("mouseleave", function () {
-                $(".sidemenu").stop().slideUp();
-                $("#menuToggle").removeClass("open"); // 햄버거 버튼 원래 상태로 복귀
-            });
-    
-            // 데스크탑에서는 클릭 시 메뉴 닫기
-            $(".menuWrap, .sidemenu").off("click").on("click", function () {
-                $(".sidemenu").stop().slideUp();
-                $("#menuToggle").removeClass("open"); // 클릭 시 햄버거 버튼 원래 상태로
-            });
+        });
+
+        /** ========== 공지사항 조회수 증가 ========== */
+        $(".notice-item").click(function () {
+            let viewCountElement = $(this).find(".view-count span");
+
+            if (viewCountElement.length) {
+                let currentViews = parseInt(viewCountElement.text());
+                viewCountElement.text(currentViews + 1);
+            }
+        });
+    }
+
+    // Header & Footer 로드 후 `initializeCommonFeatures()` 실행
+    loadComponent("header", "components/header.html", initializeCommonFeatures);
+    loadComponent("footer", "components/footer.html");
+    /** ================================
+     * 1. 인트로 화면 전환
+     * ================================= */
+    const text = "Model Zero";
+    let index = 0;
+    const typingElement = $("#typing-text");
+
+    function typeEffect() {
+        if (index < text.length) {
+            typingElement.append(text.charAt(index)); // 한 글자씩 추가
+            index++;
+            setTimeout(typeEffect, 150); //글자 개당(0.15초 타이핑)
+        }
+        else {
+            setTimeout(() => {
+                $("#intro").fadeOut(1000, function () {
+                    $("#main-content").fadeIn(500); // 메인화면 표시
+                });
+            }, 500); //0.5초뒤 메인화면 나옴
         }
     }
-    
-    // 초기 로드 시 실행
-    updateMenuBehavior();
-    
-    // 화면 크기 변경 시 이벤트 다시 바인딩
-    $(window).resize(updateMenuBehavior);
-    $(window).resize(updateMenuBehavior);
 
+    typeEffect();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /** ================================
+     * 3. 커스텀 마우스 커서
+     * ================================= */
     const cursor = document.querySelector(".custom-cursor");
 
-    // 마우스 이동 시 커서 따라다니기
-    document.addEventListener("mousemove", function (e) {
+    document.addEventListener("mousemove", (e) => {
         cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
     });
 
-    // 클릭 시 원 확대 효과
-    document.addEventListener("click", function () {
+    document.addEventListener("click", () => {
         cursor.style.width = "60px";
         cursor.style.height = "60px";
         setTimeout(() => {
@@ -103,127 +151,96 @@ $(function(){
         }, 200);
     });
 
-    // 링크 & 버튼 위에서 색상 변경
     document.querySelectorAll("a, button").forEach((el) => {
         el.addEventListener("mouseenter", () => {
-            cursor.style.backgroundColor = "rgba(0, 94, 212, 0.5)"; // 파란색 변경
-            cursor.style.border = "2px solid rgb(0, 94, 212)"; //
+            cursor.style.backgroundColor = "rgba(0, 94, 212, 0.5)";
+            cursor.style.border = "2px solid rgb(0, 94, 212)";
         });
+
         el.addEventListener("mouseleave", () => {
-            cursor.style.backgroundColor = "rgba(255, 255, 255, 0)"; // 원래 색으로 복귀
-            cursor.style.border = "1px solid rgba(255, 255, 255, 0.8)"; //
+            cursor.style.backgroundColor = "rgba(255, 255, 255, 0)";
+            cursor.style.border = "1px solid rgba(255, 255, 255, 0.8)";
         });
     });
-    
 
+    /** ================================
+     * 4. Top 버튼 설정
+     * ================================= */
+    const topButton = document.getElementById("topButton");
 
+    window.addEventListener("scroll", () => {
+        topButton.style.display = window.scrollY > 100 ? "block" : "none";
+    });
 
-    // 탑버튼설정
-    // 페이지 스크롤 시 버튼 표시/숨기기
-window.onscroll = function() {
-    let topButton = document.getElementById("topButton");
-    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        topButton.style.display = "block"; // 100px 이상 스크롤 시 버튼 표시
-    } else {
-        topButton.style.display = "none"; // 100px 이하일 때 버튼 숨기기
-    }
-};
+    topButton.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
 
-// 버튼 클릭 시 최상단으로 스크롤
-document.getElementById("topButton").onclick = function() {
-    window.scrollTo({top: 0, behavior: 'smooth'}); // 부드럽게 최상단으로 스크롤
-};
-
-
-
-
-
-
-    // 자주묻는 질문
-    $('.question').click(function () {
-        var parent = $(this).parent();
+    /** ================================
+     * 5. 자주 묻는 질문 (FAQ)
+     * ================================= */
+    $(".question").click(function () {
+        const parent = $(this).parent();
 
         if (parent.hasClass("active")) {
-            parent.removeClass("active");
-            parent.find(".answer").slideUp();
+            parent.removeClass("active").find(".answer").slideUp();
         } else {
-            $(".faq-item").removeClass("active");
-            $(".answer").slideUp();
-            parent.addClass("active");
-            parent.find(".answer").slideDown();
+            $(".faq-item").removeClass("active").find(".answer").slideUp();
+            parent.addClass("active").find(".answer").slideDown();
         }
     });
 
+    /** ================================
+     * 6. 팝업 닫기
+     * ================================= */
+    $(".popupCheck img").click(() => {
+        $(".popup").hide();
+    });
 
-
-
-
-    // 팝업설정
-    $('.popupCheck img').click(function(){
-        $('.popup').css({'display':'none'})
-    })
-
-
-    // 공지사항
-     // 🔍 검색 및 필터 기능
-     $("#searchButton").click(function () {
-        let searchText = $("#searchInput").val().toLowerCase();
-        let filterCategory = $("#categoryFilter").val();
+    /** ================================
+     * 7. 공지사항 검색 & 필터
+     * ================================= */
+    $("#searchButton").click(() => {
+        const searchText = $("#searchInput").val().toLowerCase();
+        const filterCategory = $("#categoryFilter").val();
 
         $(".notice-item").each(function () {
-            let title = $(this).find(".notice-title").text().toLowerCase();
-            let content = $(this).find("p:nth-child(4)").text().toLowerCase();
-            let category = $(this).data("category");
+            const title = $(this).find(".notice-title").text().toLowerCase();
+            const content = $(this).find("p:nth-child(4)").text().toLowerCase();
+            const category = $(this).data("category");
 
-            let matchCategory = filterCategory === "" || category.includes(filterCategory);
-            let matchSearch = title.includes(searchText) || content.includes(searchText);
-
-            if (matchCategory && matchSearch) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
+            $(this).toggle(
+                (filterCategory === "" || category.includes(filterCategory)) &&
+                (title.includes(searchText) || content.includes(searchText))
+            );
         });
     });
 
-    // 🖱️ 게시물 클릭 시 조회수 증가 기능
-    // $(".notice-item").click(function () {
-    //     let viewCountElement = $(this).find(".view-count");
-        
-    //     if (viewCountElement.length === 0) {
-    //         $(this).append("<p class='view-count'>조회수: 1</p>");
-    //     } else {
-    //         let currentViews = parseInt(viewCountElement.text().replace("조회수: ", ""));
-    //         viewCountElement.text("조회수: " + (currentViews + 1));
-    //     }
-    // });
-    $(".notice-item").click(function(){
-        let viewCountElement = $(this).find(".view-count span"); // span 요소 선택
-        
-        if (viewCountElement.length === 0) {
-            // 이 부분은 더 이상 필요하지 않음
-            // $(this).append("<p class='view-count'>조회수: 1</p>");
-        } else {
-            let currentViews = parseInt(viewCountElement.text()); // span의 숫자만 가져오기
-            viewCountElement.text(currentViews + 1); // 숫자 증가
+    /** ================================
+     * 8. 공지사항 조회수 증가
+     * ================================= */
+    $(".notice-item").click(function () {
+        let viewCountElement = $(this).find(".view-count span");
+
+        if (viewCountElement.length) {
+            let currentViews = parseInt(viewCountElement.text());
+            viewCountElement.text(currentViews + 1);
         }
     });
 
-
-
-
-    // 공통 페이지네이션 설정
+    /** ================================
+     * 9. 공통 페이지네이션 설정
+     * ================================= */
     function setupPagination(containerSelector, itemSelector, itemsPerPage) {
-        let $container = $(containerSelector);
-        let $items = $(itemSelector);
-        let totalPages = Math.max(1, Math.ceil($items.length / itemsPerPage)); // 최소 1페이지 보장
+        const $container = $(containerSelector);
+        const $items = $(itemSelector);
+        const totalPages = Math.max(1, Math.ceil($items.length / itemsPerPage));
         let currentPage = 1;
 
         function showPage(page) {
             if (page < 1 || page > totalPages) return;
 
-            $items.hide();
-            $items.slice((page - 1) * itemsPerPage, page * itemsPerPage).show();
+            $items.hide().slice((page - 1) * itemsPerPage, page * itemsPerPage).show();
             updatePagination();
         }
 
@@ -271,39 +288,6 @@ document.getElementById("topButton").onclick = function() {
         showPage(currentPage);
     }
 
-    // 📄 FAQ & 공지사항 페이지네이션 적용
     setupPagination(".pagination[data-type='faq']", ".faq-item", 4);
     setupPagination(".pagination[data-type='notice']", ".notice-item", 6);
-
-
-
-
-
-
-
-    // $("#menuToggle").click(function () {
-    //     $(this).toggleClass("open");
-    //   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 });
