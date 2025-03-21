@@ -91,7 +91,7 @@
                 const date = new Date(notice.timestamp).toLocaleDateString('ko-KR').slice(2); // 날짜 예: 25. 3. 21
                 const maskedUserId = notice.userId.replace(/(?<=.{3})./g, '*'); // 아이디 마스킹
                 const html = `
-                <a href="/modelHomePage/noticeDetail.html?id=${notice.contentId}" class="notice-item" data-category="공지" data-id="${notice.contentId}">
+                <a href="/noticeDetail.html?id=${notice.contentId}" class="notice-item" data-category="공지" data-id="${notice.contentId}">
                     <img src="${thumbnail}" alt="썸네일">
                     <p>No. ${notice.contentId}</p>
                     <p class="notice-title">${notice.title}</p>
