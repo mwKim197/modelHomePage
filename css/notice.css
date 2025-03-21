@@ -136,6 +136,8 @@ section {margin-top: 13rem;}
 .notice-item>img {
     width: 100%;
     height: auto;
+    aspect-ratio: 1 / 1; /* 정사각형 */
+    object-fit: cover;   /* 넘치는 부분은 잘라냄 */
     border-radius: 5px;
     margin-bottom: 2rem;
 }

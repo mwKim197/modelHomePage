@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Model Zero</title>
+  <link rel="icon" href="./img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/notice.css">
+  <script src="./script/jquery-3.6.0.js"></script>
+  <style>
+    .board_contents img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .module_wrap {
+      width: 80%;
+      max-width: 1200px;       /* 너무 넓어지지 않도록 제한 (선택사항) */
+      text-align: left;        /* 안쪽 텍스트 좌측 정렬 */
+      box-sizing: border-box; /* 패딩/보더 포함 계산 */
+    }
+
+    .board_view_header {
+      border-bottom: 1px solid #ddd; /* 구분선 추가 */
+      padding-bottom: 15px;
+      margin-bottom: 10px;
+    }
+
+    .board_view_header1 {
+      margin-bottom: 10px;
+    }
+
+    .post_title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .post_info {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: #666;
+      gap: 15px; /* 정보 간격 조정 */
+    }
+
+    .post_info li {
+      list-style: none;
+    }
+
+    .board_contents {
+      font-size: 23px;
+      line-height: 1.6;
+      color: #afafaf;
+    }
+
+    .board_view_bottom {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
+
+    .board_view_bottom a {
+      color: #1a1a1a;
+      font-size: 14px;
+      text-decoration: none;
+      margin-left: 10px;
+    }
+
+    .board_view_bottom a:hover {
+      text-decoration: underline;
+    }
+
+    /* 버튼 기본 스타일 */
+    .btn_resp {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 8px; /* 둥근 모서리 */
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+    }
+
+    /* 색상 테마 */
+    .color4 {
+      background-color: #f4f4f4; /* 연한 회색 */
+      color: #333; /* 기본 텍스트 색 */
+      border: 1px solid #ccc;
+    }
+
+    .color4:hover {
+      background-color: #e0e0e0; /* 호버 시 더 어두운 회색 */
+    }
+
+    /* 크기 조절 */
+    .size_c {
+      min-width: 100px;
+      padding: 12px 24px;
+      font-size: 14px;
+    }
+
+    /* 버튼 모양 (둥근 버튼) */
+    .round {
+      border-radius: 8px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="custom-cursor"></div> <!-- 마우스따라다니는 원 -->
+  <a href="#"><button id="chatButton"><img src="./img/chatbot.svg" alt=""><img src="./img/chattxt.svg" alt=""></button> </a>
+  <button id="topButton" style="display: none;"><img src="./img/arrow.svg" alt="">Top</button> <!-- 탑버튼 -->
+  <!-- header -->
+  <div id="header"></div>
+
+  <section class="module_wrap" data-layout-fullsize="no">
+    <h2 style="text-align: center; font-size: 28px; font-weight: bold; margin-bottom: 15px">공지사항 상세</h2>
+
+    <input type="hidden" id="post_seq" value="">
+    <input type="hidden" id="writer_id" value="">
+
+    <div class="board_view_header">
+      <div class="board_view_header1">
+        <div class="post_title_category">
+          <span class="post_title">제목 로딩 중...</span>
+        </div>
+      </div>
+
+      <div class="board_view_header2">
+        <ul class="post_info">
+          <li class="post_writer">작성자</li>
+          <li class="post_date">날짜</li>
+          <li class="post_viewcount">조회: 0</li>
+        </ul>
+
+      </div>
+    </div>
+
+    <div class="board_contents">
+      <p>내용을 불러오는 중입니다...</p>
+    </div>
+
+    <!-- 하단 버튼 -->
+    <div class="board_view_bottom">
+      <a href="/notice.html" class="btn_resp color4 size_c round">목록</a>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+</body>
+<script src="./script/common.js"></script>
+<script>
+  $(document).ready(function () {
+    const postData = JSON.parse(sessionStorage.getItem("selectedPost"));
+    if (postData) {
+      renderPostDetail(postData);
+    } else {
+      alert("잘못된 접근입니다.");
+      location.href = "/pages/notice.html";
+    }
+
+    function renderPostDetail(post) {
+      $('.post_title').text(post.title);
+      $('.post_writer').text(maskUserId(post.userId));
+      $('.post_date').text(formatDate(post.timestamp));
+      $('.post_viewcount').text('조회: ' + post.view);
+      $('.board_contents').html(post.content);
+    }
+
+    function maskUserId(userId) {
+      return userId.replace(/(?<=.{3})./g, '*');
+    }
+
+    function formatDate(iso) {
+      const date = new Date(iso);
+      return date.toLocaleDateString('ko-KR');
+    }
+  });
+</script>
+</html>
