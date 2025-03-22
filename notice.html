@@ -74,6 +74,7 @@
             success: function (data) {
                 noticeList = data;
                 renderNoticeList(data);
+                updatePaths();
             },
             error: function (err) {
                 console.error("데이터 가져오기 실패", err);
@@ -91,7 +92,7 @@
                 const maskedUserId = notice.userId.replace(/(?<=.{3})./g, '*'); // 아이디 마스킹
                 const html = `
                 <a href="/noticeDetail.html?id=${notice.contentId}" class="notice-item" data-category="공지" data-id="${notice.contentId}">
-                    <img src="${thumbnail}" alt="썸네일">
+                    <img src="${thumbnail}" alt="썸네일" onerror="this.onerror=null; this.src='./img/no_img.png';">
                     <p>No. ${notice.contentId}</p>
                     <p class="notice-title">${notice.title}</p>
                     <p class="notice-txt">${contentText.slice(0, 100)}${contentText.length > 100 ? '...' : ''}</p>

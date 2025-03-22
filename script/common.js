@@ -33,8 +33,8 @@ $(function () {
         console.log("✅ 경로 자동 적용 완료!");
     }
 
-    // ✅ 초기 로딩 시 경로 수정
-    updatePaths();
+    window.updatePaths = updatePaths; // ✅ 전역으로 등록
+    updatePaths(); // ✅ 초기 로딩 시 경로 수정
 
 
     /** ================================
