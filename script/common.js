@@ -240,7 +240,8 @@ $(function () {
     /** ================================
      * 7. 공지사항 검색 & 필터
      * ================================= */
-    $("#searchButton").click(() => {
+    /*
+        $("#searchButton").click(() => {
         const searchText = $("#searchInput").val().toLowerCase();
         const filterCategory = $("#categoryFilter").val();
 
@@ -254,7 +255,28 @@ $(function () {
                 (title.includes(searchText) || content.includes(searchText))
             );
         });
-    });
+    });*/
+
+    function filterDataList(list, text, category) {
+        text = text.toLowerCase(); // 소문자 통일
+
+        return list.filter((item) => {
+            const title = item.title?.toLowerCase() || "";
+            const contentText = $(item.content).text().toLowerCase(); // HTML 안의 텍스트만 추출
+
+            if (category === "제목") {
+                return title.includes(text);
+            } else if (category === "내용") {
+                return contentText.includes(text);
+            } else {
+                // 전체 검색 (제목 + 내용)
+                return title.includes(text) || contentText.includes(text);
+            }
+        });
+
+    }
+
+    window.filterDataList = filterDataList;
 
     /** ================================
      * 8. 공지사항 조회수 증가
