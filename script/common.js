@@ -330,4 +330,6 @@ $(function () {
 
     setupPagination(".pagination[data-type='faq']", ".faq-item", 4);
     setupPagination(".pagination[data-type='notice']", ".notice-item", 6);
+    window.setupPagination = setupPagination; // ✅ 전역으로 등록
 });
+

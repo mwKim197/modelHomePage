@@ -55,13 +55,14 @@
     const $list = $('.notice-list');
     $(document).ready(function () {
         $.ajax({
-            url: 'https://api.narrowroad-model.com/model_home_page?func=get-posts&contentType=notice', // 여기에 너의 Lambda와 연결된 API Gateway URL
+            url: 'https://api.narrowroad-model.com/model_home_page?func=get-posts&contentType=notice',
             method: 'GET',
             dataType: 'json',
             success: function (data) {
                 noticeList = data;
                 renderNoticeList(data);
                 updatePaths();
+                setupPagination(".pagination[data-type='notice']", ".notice-item", 6);
             },
             error: function (err) {
                 console.error("데이터 가져오기 실패", err);
