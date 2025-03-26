@@ -32,7 +32,7 @@
   
           </div>
           <div class="popupCheck">
-            <input type="checkbox" id="agree" name="agree">오늘 하루 그만보기
+            <input type="checkbox" id="popAgree" name="agree">오늘 하루 그만보기
             <img src="./img/popupX.svg" alt="">
           </div>
         </div>
@@ -215,5 +215,58 @@
     </div>
 
   </body>
-  <script src="./script/common.js"></script>
+<script>
+  document.querySelector("form").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+    const agree = document.getElementById("agree").checked;
+    const termsText = document.querySelector(".privacy-text").innerText;
+
+    if (!name || !phone || !message) {
+      alert("필수 항목을 입력해주세요.");
+      return;
+    }
+
+    if (!agree) {
+      alert("개인정보 수집에 동의해주세요.");
+      return;
+    }
+
+    const payload = {
+      title: `[Model Zero 문의] ${name}님 문의`,
+      content: `
+        <p><strong>성함:</strong> ${name}</p>
+        <p><strong>연락처:</strong> ${phone}</p>
+        <p><strong>문의 내용:</strong><br>${message.replace(/\n/g, "<br>")}</p>
+      `,
+      terms : termsText,
+      agree: agree,
+      replyTo: email
+    };
+
+    try {
+      const res = await fetch("https://api.narrowroad-model.com/model_home_page?func=send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await res.json();
+      if (res.ok) {
+        alert("✅ 문의가 성공적으로 접수되었습니다.");
+        document.querySelector("form").reset();
+      } else {
+        alert(`❌ 오류: ${result.message}`);
+      }
+    } catch (err) {
+      console.error("❌ 전송 실패:", err);
+      alert("서버 오류로 인해 전송에 실패했습니다.");
+    }
+  });
+</script>
+<script src="./script/common.js"></script>
 </html>
