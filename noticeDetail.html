@@ -115,8 +115,9 @@
 </head>
 <body>
   <div class="custom-cursor"></div> <!-- 마우스따라다니는 원 -->
-  <a href="#"><button id="chatButton"><img src="./img/chatbot.svg" alt=""><img src="./img/chattxt.svg" alt=""></button> </a>
+  <a href="https://pf.kakao.com/_mIxiYG/chat"><button id="chatButton"><img src="./img/chatbot.svg" alt=""><img src="./img/chattxt.svg" alt=""></button> </a>
   <button id="topButton" style="display: none;"><img src="./img/arrow.svg" alt="">Top</button> <!-- 탑버튼 -->
+  <!--공지사항 상세-->
   <!-- header -->
   <div id="header"></div>
 
@@ -149,7 +150,7 @@
 
     <!-- 하단 버튼 -->
     <div class="board_view_bottom">
-      <a href="/notice.html" class="btn_resp color4 size_c round">목록</a>
+      <button id="list-btn" class="btn_resp color4 size_c round"> 목록</button>
     </div>
   </section>
 
@@ -158,12 +159,34 @@
 <script src="./script/common.js"></script>
 <script>
   $(document).ready(function () {
+    // 화면타입
+    function getParam(key) {
+      const params = new URLSearchParams(location.search);
+      return params.get(key);
+    }
+
+    const boardType = getParam("contentType") || "notice";
+
+    const titleMap = {
+      notice: "공지사항 상세",
+      store: "설치 매장 상세",
+      news: "언론 보도 상세",
+      machine: "머신 설명서 상세",
+    };
+    console.log("boardType1: ", boardType);
+    $("h2").text(titleMap[boardType]);
+
+    $("#list-btn").click(function () {
+      console.log("boardType: ", boardType);
+      window.location.href = `./notice.html?contentType=${boardType}`;
+    });
+
     const postData = JSON.parse(sessionStorage.getItem("selectedPost"));
     if (postData) {
       renderPostDetail(postData);
     } else {
       alert("잘못된 접근입니다.");
-      location.href = "/pages/notice.html";
+      location.href = `/notice.html?contentType=${boardType}`;
     }
 
     function renderPostDetail(post) {
