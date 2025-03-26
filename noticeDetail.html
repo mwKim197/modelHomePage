@@ -150,7 +150,7 @@
 
     <!-- 하단 버튼 -->
     <div class="board_view_bottom">
-      <a href="/notice.html" class="btn_resp color4 size_c round">목록</a>
+      <button id="list-btn" class="btn_resp color4 size_c round"> 목록</button>
     </div>
   </section>
 
@@ -159,12 +159,34 @@
 <script src="./script/common.js"></script>
 <script>
   $(document).ready(function () {
+    // 화면타입
+    function getParam(key) {
+      const params = new URLSearchParams(location.search);
+      return params.get(key);
+    }
+
+    const boardType = getParam("contentType") || "notice";
+
+    const titleMap = {
+      notice: "공지사항 상세",
+      store: "설치 매장 상세",
+      news: "언론 보도 상세",
+      machine: "머신 설명서 상세",
+    };
+    console.log("boardType1: ", boardType);
+    $("h2").text(titleMap[boardType]);
+
+    $("#list-btn").click(function () {
+      console.log("boardType: ", boardType);
+      window.location.href = `./notice.html?contentType=${boardType}`;
+    });
+
     const postData = JSON.parse(sessionStorage.getItem("selectedPost"));
     if (postData) {
       renderPostDetail(postData);
     } else {
       alert("잘못된 접근입니다.");
-      location.href = "/pages/notice.html";
+      location.href = `/notice.html?contentType=${boardType}`;
     }
 
     function renderPostDetail(post) {

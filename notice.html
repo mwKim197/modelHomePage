@@ -66,6 +66,24 @@
         initNoticePage();
     });
 
+    // 화면타입
+    function getParam(key) {
+      const params = new URLSearchParams(location.search);
+      return params.get(key);
+    }
+
+    const boardType = getParam("contentType") || "notice";
+    console.log("boardType: ", boardType);
+    const titleMap = {
+      notice: "공지사항",
+      store: "설치 매장",
+      news: "언론 보도",
+      machine: "머신 설명서",
+    };
+
+    $("h1").text(titleMap[boardType] + " 목록");
+    $("h2").text(titleMap[boardType]);
+
     // 검색
     async function handleSearch() {
         const searchText = $("#searchInput").val();
@@ -91,7 +109,7 @@
     async function fetchNotices() {
         try {
             return await $.ajax({
-                url: 'https://api.narrowroad-model.com/model_home_page?func=get-posts&contentType=notice',
+                url: `https://api.narrowroad-model.com/model_home_page?func=get-posts&contentType=${boardType}`,
                 method: 'GET',
                 dataType: 'json',
             });
@@ -112,7 +130,7 @@
             const date = new Date(notice.timestamp).toLocaleDateString('ko-KR').slice(2); // 날짜 예: 25. 3. 21
             const maskedUserId = notice.userId.replace(/(?<=.{3})./g, '*'); // 아이디 마스킹
             const html = `
-                <a href="/noticeDetail.html?id=${notice.contentId}" class="notice-item" data-category="공지" data-id="${notice.contentId}">
+                <a href="/noticeDetail.html?contentType=${boardType}&id=${notice.contentId}" class="notice-item" data-category="공지" data-id="${notice.contentId}">
                     <img src="${thumbnail}" alt="썸네일" onerror="this.onerror=null; this.src='./img/no_img.png';">
                     <p>No. ${notice.contentId}</p>
                     <p class="notice-title">${notice.title}</p>
