@@ -116,11 +116,18 @@ section {width: 100%;}
 
 
 /* 팝업설정 */
-.popup {position: fixed; height: 100vh; width: 100vw; background-color: rgba(0, 0, 0, 0.8); z-index: 99999; display: flex; justify-content: center; align-items: center;}
+.popup {position: fixed; height: 100vh; width: 100vw; background-color: rgba(0, 0, 0, 0.8); z-index: 99999; display: none; justify-content: center; align-items: center;}
 .popupBox {
     width: 100%; max-width: 50rem; height: 50rem;
 }
-.popupContent {width: 100%; height: 100%; background-image: url(../img/popup.svg); background-size: cover; background-position: center;}
+.popupContent {
+    width: 100%;
+    height: 100%;
+    background-image: url(../img/popup.svg); /* JS로 삽입해도 OK */
+    background-size: contain;       /* 👈 비율 유지하며 축소 */
+    background-repeat: no-repeat;   /* 👈 반복 없음 */
+    background-position: center;    /* 👈 가운데 정렬 */
+}
 .popupCheck {width: 100%; display: flex; align-items: center; font-size: 1.6rem;}
 .popupCheck input {margin-right: 1rem;}
 .popupCheck img {margin-left: auto;} 

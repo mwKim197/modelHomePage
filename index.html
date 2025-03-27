@@ -231,6 +231,11 @@
 
   </body>
 <script>
+  // 팝업
+  document.addEventListener("DOMContentLoaded", function () {
+    initNoticePage();
+  });
+
   document.querySelector("form").addEventListener("submit", async function (e) {
     e.preventDefault();
 
@@ -282,6 +287,68 @@
       alert("서버 오류로 인해 전송에 실패했습니다.");
     }
   });
+
+
+  // 초기 실행
+  async function initNoticePage() {
+    const popupContent = document.querySelector(".popupContent");
+    noticeList = await fetchNotices();  // ✅ 데이터 받아오기
+    let img;
+
+    if (noticeList[0].images[0]) {
+      img = noticeList[0].images[0];
+    }
+
+    if (popupContent && img) {
+      popupContent.style.backgroundImage = `url(${img})`;
+    }
+
+    await updatePaths();                      // ✅ 이미지/링크 경로 수정
+  }
+
+  // 공지사항 조회
+  async function fetchNotices() {
+    try {
+      return await $.ajax({
+        url: 'https://api.narrowroad-model.com/model_home_page?func=get-posts&contentType=popup',
+        method: 'GET',
+        dataType: 'json',
+      });
+    } catch (err) {
+      console.error("❌ 팝업 불러오기 실패:", err);
+      return [];
+    }
+  }
+
+  // 오늘 날짜 문자열
+  function getTodayKey() {
+    const today = new Date();
+    return today.toISOString().split('T')[0]; // "2025-03-27"
+  }
+
+  // 팝업 보여줄지 결정
+  window.addEventListener("DOMContentLoaded", () => {
+    const savedDate = localStorage.getItem("hidePopupDate");
+    const today = getTodayKey();
+    console.log("1111", savedDate);
+    console.log("1111", today);
+    if (savedDate !== today) {
+      document.querySelector(".popup").style.display = "flex";
+    }
+  });
+
+  // 닫기 버튼 클릭 처리
+  document.querySelector(".popupCheck img").addEventListener("click", () => {
+    const isChecked = document.getElementById("popAgree").checked;
+    const today = getTodayKey();
+
+    if (isChecked) {
+      localStorage.setItem("hidePopupDate", today);
+    }
+
+    document.querySelector(".popup").style.display = "none";
+  });
+
 </script>
 <script src="./script/common.js"></script>
 </html>
