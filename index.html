@@ -330,8 +330,6 @@
   window.addEventListener("DOMContentLoaded", () => {
     const savedDate = localStorage.getItem("hidePopupDate");
     const today = getTodayKey();
-    console.log("1111", savedDate);
-    console.log("1111", today);
     if (savedDate !== today) {
       document.querySelector(".popup").style.display = "flex";
     }
