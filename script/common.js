@@ -54,7 +54,7 @@ $(function () {
      * 2. 공통 Header & Footer 로드 후 `common.js` 적용
      * ================================= */
     function loadComponent(elementId, filePath, callback) {
-        const basePath = window.location.origin.includes("s3") ? "" : "/modelHomePage"; // S3에서는 "" 처리
+        const basePath = window.location.origin.includes("localhost") ? "/modelHomePage" : "" ;
         fetch(`${basePath}/${filePath.replace(/^\/+/, "")}`)
             .then(response => response.text())
             .then(data => {
