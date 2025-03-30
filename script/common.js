@@ -7,7 +7,7 @@ $(function () {
     function updatePaths() {
         console.log("✅ 경로 자동 적용 실행됨!");
 
-        const basePath = window.location.origin.includes("s3") ? "" : "/modelHomePage";
+        const basePath = window.location.origin.includes("localhost") ? "/modelHomePage" : "" ;
 
         // ✅ 링크 경로 수정 (중복 적용 방지)
         document.querySelectorAll("a").forEach(link => {
