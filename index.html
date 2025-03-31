@@ -295,12 +295,14 @@
     noticeList = await fetchNotices();  // ✅ 데이터 받아오기
     let img;
 
-    if (noticeList[0].images[0]) {
+    if (noticeList[0]?.images[0]) {
       img = noticeList[0].images[0];
     }
-
+    console.log("img ",img);
     if (popupContent && img) {
       popupContent.style.backgroundImage = `url(${img})`;
+    } else {
+      document.querySelector(".popup").style.display = "none";
     }
 
     await updatePaths();                      // ✅ 이미지/링크 경로 수정
