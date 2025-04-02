@@ -128,7 +128,7 @@
             const contentText = $(notice.content).text().trim(); // HTML 안의 텍스트만 추출
             const thumbnail = notice.images && notice.images.length > 0 ? notice.images[0] : './img/no_img.png';
             const date = new Date(notice.timestamp).toLocaleDateString('ko-KR').slice(2); // 날짜 예: 25. 3. 21
-            const maskedUserId = notice.userId.replace(/(?<=.{3})./g, '*'); // 아이디 마스킹
+            const maskedUserId = notice.adminId.replace(/(?<=.{3})./g, '*'); // 아이디 마스킹
             const html = `
                 <a href="/noticeDetail.html?contentType=${boardType}&id=${notice.contentId}" class="notice-item" data-category="공지" data-id="${notice.contentId}">
                     <img src="${thumbnail}" alt="썸네일" onerror="this.onerror=null; this.src='./img/no_img.png';">
