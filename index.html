@@ -30,18 +30,18 @@
       <!-- header -->
       <div id="header"></div>
       <section>
-        
-      <div class="popup">
-        <div class="popupBox">
-          <div class="popupContent">
-  
+        <div id="popupContainer"></div>
+       <!-- <div class="popup">
+          <div class="popupBox">
+            <div class="popupContent">
+
+            </div>
+            <div class="popupCheck">
+              <input type="checkbox" id="popAgree" name="agree">오늘 하루 그만보기
+              <img src="./img/popupX.svg" alt="">
+            </div>
           </div>
-          <div class="popupCheck">
-            <input type="checkbox" id="popAgree" name="agree">오늘 하루 그만보기
-            <img src="./img/popupX.svg" alt="">
-          </div>
-        </div>
-      </div>
+        </div>-->
 
         <!-- main section -->
         <div class="main">
@@ -259,26 +259,6 @@
     }
   });
 
-
-  // 초기 실행
-  async function initNoticePage() {
-    const popupContent = document.querySelector(".popupContent");
-    noticeList = await fetchNotices();  // ✅ 데이터 받아오기
-    let img;
-
-    if (noticeList[0]?.images[0]) {
-      img = noticeList[0].images[0];
-    }
-    console.log("img ",img);
-    if (popupContent && img) {
-      popupContent.style.backgroundImage = `url(${img})`;
-    } else {
-      document.querySelector(".popup").style.display = "none";
-    }
-
-    await updatePaths();                      // ✅ 이미지/링크 경로 수정
-  }
-
   // 공지사항 조회
   async function fetchNotices() {
     try {
@@ -293,32 +273,85 @@
     }
   }
 
+  async function initNoticePage() {
+    const notices = (await fetchNotices()).filter(n => n.images?.[0]).slice(0, 3);
+    const popupContainer = document.getElementById("popupContainer");
+
+    if (!notices.length) {
+      document.getElementById("popupContainer").style.display = "none";
+      return;
+    }
+
+    notices.forEach((notice, index) => {
+      const popup = document.createElement("div");
+      popup.className = "popup";
+      popup.style.display = "flex"; // 첫 진입 시 보여주기
+
+      popup.innerHTML = `
+      <div class="popupBox">
+        <div class="popupContent">
+          <div class="popupItem">
+            <a href="${notice.linkUrl || "#"}" target="_blank" rel="noopener noreferrer">
+              <img src="${notice.images[0]}" alt="공지 이미지">
+            </a>
+          </div>
+        </div>
+        <div class="popupCheck">
+          <input type="checkbox" class="popAgree" data-index="${index}">오늘 하루 그만보기
+          <img src="./img/popupX.svg" alt="닫기" class="popupCloseBtn" data-index="${index}">
+        </div>
+      </div>
+    `;
+
+      popupContainer.appendChild(popup);
+    });
+
+    // 닫기 버튼 이벤트 연결
+    // 닫기 버튼 클릭 시
+    document.querySelectorAll(".popupCloseBtn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const idx = e.target.dataset.index;
+        const agree = document.querySelector(`.popAgree[data-index="${idx}"]`).checked;
+
+        if (agree) {
+          localStorage.setItem(`hidePopupDate_${idx}`, getTodayKey());
+        }
+
+        // 해당 팝업만 닫기
+        const popup = e.target.closest(".popup");
+        popup.style.display = "none";
+
+        // 👉 남은 팝업 확인 후 모두 닫혔으면 container도 닫기
+        const visiblePopups = document.querySelectorAll(".popup");
+        const allClosed = [...visiblePopups].every(p => p.style.display === "none");
+
+        if (allClosed) {
+          document.getElementById("popupContainer").style.display = "none";
+        }
+      });
+    });
+
+    // 하루 안 보기 처리
+    document.querySelectorAll(".popup").forEach((el, i) => {
+      const saved = localStorage.getItem(`hidePopupDate_${i}`);
+      if (saved === getTodayKey()) {
+        el.style.display = "none";
+      }
+    });
+
+  // ✅ 모든 팝업 닫힘 체크 후 container 숨기기
+    const visiblePopups = document.querySelectorAll(".popup");
+    const allClosed = [...visiblePopups].every(p => p.style.display === "none");
+    if (allClosed) {
+      document.getElementById("popupContainer").style.display = "none";
+    }
+  }
+
   // 오늘 날짜 문자열
   function getTodayKey() {
     const today = new Date();
     return today.toISOString().split('T')[0]; // "2025-03-27"
   }
-
-  // 팝업 보여줄지 결정
-  window.addEventListener("DOMContentLoaded", () => {
-    const savedDate = localStorage.getItem("hidePopupDate");
-    const today = getTodayKey();
-    if (savedDate !== today) {
-      document.querySelector(".popup").style.display = "flex";
-    }
-  });
-
-  // 닫기 버튼 클릭 처리
-  document.querySelector(".popupCheck img").addEventListener("click", () => {
-    const isChecked = document.getElementById("popAgree").checked;
-    const today = getTodayKey();
-
-    if (isChecked) {
-      localStorage.setItem("hidePopupDate", today);
-    }
-
-    document.querySelector(".popup").style.display = "none";
-  });
 
 </script>
 <script src="./script/common.js"></script>
