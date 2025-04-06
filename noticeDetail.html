@@ -190,8 +190,9 @@
     }
 
     function renderPostDetail(post) {
+      console.log("post.content", post.content);
       $('.post_title').text(post.title);
-      $('.post_writer').text(maskUserId(post.userId));
+      $('.post_writer').text(maskUserId(post.adminId));
       $('.post_date').text(formatDate(post.timestamp));
       $('.post_viewcount').text('조회: ' + post.view);
       $('.board_contents').html(post.content);
