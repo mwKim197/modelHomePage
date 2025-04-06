@@ -159,6 +159,9 @@
 <script src="./script/common.js"></script>
 <script>
   $(document).ready(function () {
+    const urlParams = new URLSearchParams(location.search);
+    const contentId = urlParams.get("id");
+
     // 화면타입
     function getParam(key) {
       const params = new URLSearchParams(location.search);
@@ -173,6 +176,11 @@
       news: "언론 보도 상세",
       machine: "머신 설명서 상세",
     };
+
+    //view 카운트 up
+    fetch(`https://api.narrowroad-model.com/model_home_page?func=increase-view&contentType=${boardType}&contentId=${contentId}`, {
+      method: "PUT"
+    });
 
     $("h2").text(titleMap[boardType]);
 
