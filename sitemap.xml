@@ -2,56 +2,56 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>https://modelzero.com/index.html</loc>
+        <loc>https://modelzero.kr/index.html</loc>
         <lastmod>2025-04-11</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
 
     <url>
-        <loc>https://modelzero.com/company.html</loc>
+        <loc>https://modelzero.kr/company.html</loc>
         <lastmod>2025-04-11</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
 
     <url>
-        <loc>https://modelzero.com/contact.html</loc>
+        <loc>https://modelzero.kr/contact.html</loc>
         <lastmod>2025-04-11</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
 
     <url>
-        <loc>https://modelzero.com/development.html</loc>
+        <loc>https://modelzero.kr/development.html</loc>
         <lastmod>2025-04-11</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
 
     <url>
-        <loc>https://modelzero.com/faq.html</loc>
+        <loc>https://modelzero.kr/faq.html</loc>
         <lastmod>2025-04-11</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
 
     <url>
-        <loc>https://modelzero.com/menu.html</loc>
+        <loc>https://modelzero.kr/menu.html</loc>
         <lastmod>2025-04-11</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
 
     <url>
-        <loc>https://modelzero.com/notice.html</loc>
+        <loc>https://modelzero.kr/notice.html</loc>
         <lastmod>2025-04-11</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
 
     <url>
-        <loc>https://modelzero.com/noticeDetail.html</loc>
+        <loc>https://modelzero.kr/noticeDetail.html</loc>
         <lastmod>2025-04-11</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
