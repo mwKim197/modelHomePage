@@ -190,15 +190,32 @@
     });
 
     const postData = JSON.parse(sessionStorage.getItem("selectedPost"));
-    if (postData) {
+    if (postData && postData.contentId === contentId && postData.contentType === boardType) {
       renderPostDetail(postData);
-    } else {
-      alert("잘못된 접근입니다.");
-      location.href = `/notice.html?contentType=${boardType}`;
+    }  else {
+      // ❌ 없거나 다른 게시글이면 API 조회
+      fetch(`https://api.narrowroad-model.com/model_home_page?func=get-post&contentType=${boardType}&contentId=${contentId}`)
+              .then(res => res.json())
+              .then(post => {
+                if (!post || !post.contentId) {
+                  alert("존재하지 않는 게시글입니다.");
+                  location.href = `./notice.html?contentType=${boardType}`;
+                  return;
+                }
+
+                // 🔄 세션에 저장해서 다음 이동 시 재사용 가능
+                sessionStorage.setItem("selectedPost", JSON.stringify(post));
+                renderPostDetail(post);
+              })
+              .catch(err => {
+                console.error("❌ 게시글 로딩 실패:", err);
+                alert("게시글 정보를 불러오는 데 실패했습니다.");
+                location.href = `./notice.html?contentType=${boardType}`;
+              });
     }
 
     function renderPostDetail(post) {
-      console.log("post.content", post.content);
+
       $('.post_title').text(post.title);
       $('.post_writer').text(maskUserId(post.adminId));
       $('.post_date').text(formatDate(post.timestamp));
