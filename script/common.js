@@ -158,19 +158,21 @@ $(function () {
 
     function typeEffect() {
         if (index < text.length) {
-            typingElement.append(text.charAt(index)); // 한 글자씩 추가
+            typingElement.append(text.charAt(index));
             index++;
-            setTimeout(typeEffect, 150); //글자 개당(0.15초 타이핑)
-        }
-        else {
+            setTimeout(typeEffect, 150);
+        } else {
             setTimeout(() => {
                 $("#intro").fadeOut(1000, function () {
-                    $("#main-content").fadeIn(500); // 메인화면 표시
+                    $("#main-content").fadeIn(500, function () {
+                        // ✅ preload된 iframe을 main으로 이동
+                        const iframe = document.getElementById("youtube-iframe");
+                        document.getElementById("youtube-visible-wrapper").appendChild(iframe);
+                    });
                 });
-            }, 500); //0.5초뒤 메인화면 나옴
+            }, 500);
         }
     }
-
     typeEffect();
 
     /** ================================

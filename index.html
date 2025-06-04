@@ -49,10 +49,27 @@
         </div>-->
 
         <!-- main section -->
-        <div class="main">
+        <!--<div class="main">
           <iframe class="background-video" src="https://www.youtube.com/embed/vDBoutMScGU?autoplay=1&loop=1&playlist=vDBoutMScGU&mute=1&controls=0&showinfo=0&modestbranding=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
           </iframe>
+        </div>-->
+
+        <!-- preload용 (눈에 보이지 않게 백그라운드에서 로드) -->
+        <div id="youtube-preload" style="position: absolute; left: -9999px; top: -9999px;">
+          <iframe
+                  id="youtube-iframe"
+                  class="background-video"
+                  width="560"
+                  height="315"
+                  src="https://www.youtube.com/embed/vDBoutMScGU?autoplay=1&loop=1&playlist=vDBoutMScGU&mute=1&controls=0&showinfo=0&modestbranding=1&enablejsapi=1"
+                  frameborder="0"
+                  allow="autoplay; encrypted-media"
+                  allowfullscreen>
+          </iframe>
         </div>
+
+        <!-- 실제 보일 위치 -->
+        <div class="main" id="youtube-visible-wrapper"></div>
 
         <div class="section1">
           <div class="section1Wrap">
