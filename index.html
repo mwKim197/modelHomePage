@@ -54,7 +54,7 @@
           </iframe>
         </div>-->
 
-        <!-- preload용 (눈에 보이지 않게 백그라운드에서 로드) -->
+       <!-- &lt;!&ndash; preload용 (눈에 보이지 않게 백그라운드에서 로드) &ndash;&gt;
         <div id="youtube-preload" style="position: absolute; left: -9999px; top: -9999px;">
           <iframe
                   id="youtube-iframe"
@@ -68,8 +68,30 @@
           </iframe>
         </div>
 
+        &lt;!&ndash; 실제 보일 위치 &ndash;&gt;
+        <div class="main" id="youtube-visible-wrapper"></div>-->
+
+
+        <!-- preload video -->
+        <div id="video-preload" style="position:absolute; left:-9999px; top:-9999px;">
+          <video
+                  id="bg-video-preload"
+                  muted
+                  autoplay
+                  loop
+                  playsinline
+                  preload="auto"
+                  width="560"
+                  height="315"
+          >
+            <source src="/video/modelzero-video.mp4" type="video/mp4">
+          </video>
+        </div>
+
         <!-- 실제 보일 위치 -->
         <div class="main" id="youtube-visible-wrapper"></div>
+        <!-- 전체화면 투명 클릭 레이어 -->
+        <div id="sound-layer"></div>
 
         <div class="section1">
           <div class="section1Wrap">

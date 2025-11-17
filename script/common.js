@@ -1,6 +1,25 @@
 $(function () {
     console.log("✅ jQuery에서 DOM 로드 완료!");
 
+    // preload된 비디오
+    const video = document.getElementById("bg-video-preload");
+
+    function activateSound() {
+        video.muted = false;     // 음소거 해제
+        video.volume = 1.0;      // 볼륨 설정
+
+        // 클릭 레이어 제거
+        const layer = document.getElementById("sound-layer");
+        if (layer) {
+            layer.remove();
+        }
+
+        // 이벤트 청소
+        window.removeEventListener("click", activateSound);
+    }
+
+    window.addEventListener("click", activateSound);
+
     /** ================================
      * 1. 경로 자동 변경 함수 (이미지 및 링크)
      * ================================= */
@@ -165,9 +184,17 @@ $(function () {
             setTimeout(() => {
                 $("#intro").fadeOut(1000, function () {
                     $("#main-content").fadeIn(500, function () {
-                        // ✅ preload된 iframe을 main으로 이동
-                        const iframe = document.getElementById("youtube-iframe");
-                        document.getElementById("youtube-visible-wrapper").appendChild(iframe);
+
+                        // ⬇️ 기존: iframe 이동
+                        // const iframe = document.getElementById("youtube-iframe");
+                        // document.getElementById("youtube-visible-wrapper").appendChild(iframe);
+
+                        // ⬇️ 변경: preload된 video 이동
+                        const video = document.getElementById("bg-video-preload");
+                        document.getElementById("youtube-visible-wrapper").appendChild(video);
+
+                        // 원한다면 스타일 추가
+                        video.classList.add("background-video");
                     });
                 });
             }, 500);

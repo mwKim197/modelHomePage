@@ -18,6 +18,17 @@ html {
 }
 section {width: 100%;}
 
+#sound-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0); /* 완전 투명 */
+    z-index: 9999;
+    cursor: pointer;
+}
+
 
 /* 스크롤바 전체 영역 */
 ::-webkit-scrollbar {width: 10px; /* 스크롤바 너비 */}
@@ -226,20 +237,30 @@ header {
     width: 100%;
 }
 
+/*.background-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 177.78%; !* 16:9 비율 유지 *!
+    height: 177.78%; !* 세로 기준으로 꽉 채움 *!
+    object-fit: cover; !* 비율 유지하면서 화면 채우기 *!
+    transform: translate(-50%, -50%);
+    pointer-events: none; !* 클릭 방지 *!
+    z-index: 1000;
+}*/
+
+
 .background-video {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 177.78%; /* 16:9 비율 유지 */
-    height: 177.78%; /* 세로 기준으로 꽉 채움 */
-    object-fit: cover; /* 비율 유지하면서 화면 채우기 */
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
     transform: translate(-50%, -50%);
-    pointer-events: none; /* 클릭 방지 */
-    z-index: 1000;
+    pointer-events: none;
+    z-index: -1;
 }
-
-
-
 
 
 
