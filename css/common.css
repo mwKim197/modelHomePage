@@ -262,10 +262,6 @@ header {
     z-index: -1;
 }
 
-
-
-
-
 .hamburger {
     width: 40px;
     height: 30px;
@@ -570,9 +566,6 @@ header, .sec1WrapBox, .sec1_list, .sec1_img, .footerWrap, .section2, .section3, 
 
 }
 
-
-
-
 /* ✅ 992px 이하 (태블릿) */
 @media (max-width: 992px) {}
 
@@ -585,17 +578,22 @@ header, .sec1WrapBox, .sec1_list, .sec1_img, .footerWrap, .section2, .section3, 
     .author {display: none;}
     .notice-meta {flex-wrap: wrap;}
     .notice-meta p {margin-right: 0;}
-    .main {height: 100vh;}
+    .main {height: 27vh;}
 
     
     .section1Wrap {background-size: 45%; /* 크기 조절*/}
 
     .background-video {
-        width: 300%; /* 가로 줄이면서도 꽉 차도록 */
-        height: 100%; /* 세로 유지 */
+        position: relative;   /* 🔥 핵심: fixed/absolute 금지 */
+        top: 0;
+        left: 0;
+        width: 100vw;         /* 화면 꽉 */
+        height: auto;         /* 비율 유지 */
+        object-fit: cover;
+        transform: none;      /* translate 제거 */
+        display: block;       /* inline 문제 방지 */
+        z-index: -1;
     }
-
-
 
     .section1 .sec1_txt h3 {font-size: 3rem; letter-spacing: 0.5rem;}
     .section1 .sec1_txt h2 {font-size: 6.5rem;}
@@ -653,21 +651,20 @@ header, .sec1WrapBox, .sec1_list, .sec1_img, .footerWrap, .section2, .section3, 
     .faq-container {max-width: 350px; width: 100%; margin: 13rem auto 0 auto;}
 
 
-
     /* 팝업설정 */
     .popupBox {width: 100%; max-width: 35rem; height: 37rem;}
 
+    .main {height: 27vh;}
 
-
-
-
-    .main {height: 100vh;}
     .background-video {
-        width: 500%; /* 가로 줄이면서도 꽉 차도록 */
-        height: 100%; /* 세로 유지 */
+        position: relative;   /* 스크롤되도록 */
+        width: 100%;          /* 가로 기준 맞추기 */
+        height: auto;         /* 세로는 자동 → 세로 너무 긴 문제 해결 */
+        object-fit: cover;    /* 위아래 잘려도 자연스럽게 */
+        transform: none;      /* translate 제거 */
+        display: block;       /* inline white-space 문제 방지 */
+        z-index: -1;
     }
-
-    
     .section1Wrap {background-size: 60%; /* 크기 조절*/ position: relative;}
     .section1Wrap::before {
         content: '';
