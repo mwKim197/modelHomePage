@@ -578,7 +578,7 @@ header, .sec1WrapBox, .sec1_list, .sec1_img, .footerWrap, .section2, .section3, 
     .author {display: none;}
     .notice-meta {flex-wrap: wrap;}
     .notice-meta p {margin-right: 0;}
-    .main {height: 27vh;}
+    .main {height: 38vh;}
 
     
     .section1Wrap {background-size: 45%; /* 크기 조절*/}
