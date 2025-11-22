@@ -567,7 +567,24 @@ header, .sec1WrapBox, .sec1_list, .sec1_img, .footerWrap, .section2, .section3, 
 }
 
 /* ✅ 992px 이하 (태블릿) */
-@media (max-width: 992px) {}
+@media (max-width: 992px) {
+    .main {height: 57vh;}
+
+
+    .section1Wrap {background-size: 45%; /* 크기 조절*/}
+
+    .background-video {
+        position: relative;   /* 🔥 핵심: fixed/absolute 금지 */
+        top: 0;
+        left: 0;
+        width: 100vw;         /* 화면 꽉 */
+        height: auto;         /* 비율 유지 */
+        object-fit: cover;
+        transform: none;      /* translate 제거 */
+        display: block;       /* inline 문제 방지 */
+        z-index: -1;
+    }
+}
 
 /* ✅ 768px 이하 (모바일) */
 @media (max-width: 800px) {
@@ -578,7 +595,7 @@ header, .sec1WrapBox, .sec1_list, .sec1_img, .footerWrap, .section2, .section3, 
     .author {display: none;}
     .notice-meta {flex-wrap: wrap;}
     .notice-meta p {margin-right: 0;}
-    .main {height: 38vh;}
+    .main {height: 57vh;}
 
     
     .section1Wrap {background-size: 45%; /* 크기 조절*/}
